@@ -1,0 +1,51 @@
+presubmits:
+  - name: nmath-unit-test
+    decorate: true
+    run_if_changed: "^.*.go$"
+    spec:
+      containers:
+      - image: arajguru/nmath:latest
+        command:
+        - make
+        args:
+        - unit
+
+
+postsubmits:
+  - name: build-push-image
+    cluster: default
+    run_if_changed: "^nmath/"
+    branches:
+    - main
+    - master
+    annotations:
+      description: Build and Push Image to DockerHub every commit
+    decorate: true
+    decoration_config:
+      censor_secrets: true
+    max_concurrency: 1
+    spec:
+      containers:
+      - name: kaniko
+        image: gcr.io/kaniko-project/executor:debug
+        command:
+        - "/bin/sh"
+        - "-c"
+        - |
+          executor --context=${PWD} \
+            --dockerfile=Dockerfile --destination=arajguru/nmath:${BUILD_ID} \
+            --destination=arajguru/nmath:latest
+        volumeMounts:
+          - name: kaniko-secret
+            mountPath: /kaniko/.docker/
+        resources:
+          requests:
+            cpu: 2
+            memory: 2Gi
+      volumes:
+        - name: kaniko-secret
+          secret:
+            secretName: regcred
+            items:
+              - key: .dockerconfigjson
+                path: config.json
