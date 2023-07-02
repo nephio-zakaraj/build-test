@@ -45,7 +45,7 @@ postsubmits:
       volumes:
         - name: kaniko-secret
           secret:
-            secretName: regcred
+            secretName: kaniko-secret
             items:
               - key: .dockerconfigjson
                 path: config.json
