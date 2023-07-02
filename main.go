@@ -9,6 +9,6 @@ func main() {
 	a := nmath.Add(1, 2)
 	fmt.Println("One plus two seems to be:", a)
 	fmt.Println("One plus two seems to be:", a)
-	a = nmath.Multiply(2, 2)
+	a = nmath.Multiply(3, 2)
 	fmt.Println("Two multiply two seems to be:", a)
 }
