@@ -1,5 +1,7 @@
 FROM golang:1.20.2-alpine3.17 AS builder
 
+RUN ls
+RUN pwd
 COPY . /build-test
 RUN ls
 RUN apk update && \
