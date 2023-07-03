@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	a := nmath.Add(1, 2)
+	a := nmath.Add(1, 4)
 	fmt.Println("One plus two seems to be:", a)
 	fmt.Println("One plus two seems to be:", a)
 	a = nmath.Multiply(2, 2)
