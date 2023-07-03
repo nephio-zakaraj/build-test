@@ -14,7 +14,8 @@ presubmits:
 postsubmits:
   - name: build-push-image
     cluster: default
-    run_if_changed: "^nmath/"
+    always_run: true
+    # run_if_changed: "^nmath/"
     branches:
     - main
     - master
